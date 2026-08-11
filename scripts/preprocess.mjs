@@ -36,6 +36,29 @@ const REFINE_THRESHOLD = 20;
 const SUB_DIVISIONS = 5;
 const SUB_CELL_SIZE = BASE_CELL_SIZE / SUB_DIVISIONS; // 0.2°
 
+/**
+ * Read a source file as strict UTF-8.
+ *
+ * Census/TIGER-derived GeoJSON is sometimes shipped as Latin-1/CP1252. Reading
+ * that as UTF-8 silently replaces every accented byte with U+FFFD, so
+ * "Doña Ana" ships as "Do�a Ana". Fail the build instead of baking the
+ * corruption into the .gjbf.
+ */
+function readUtf8(path) {
+  const buf = readFileSync(path);
+  try {
+    return new TextDecoder("utf-8", { fatal: true }).decode(buf);
+  } catch {
+    throw new Error(
+      `${basename(path)} is not valid UTF-8 (likely Latin-1/CP1252). Re-encode it first, e.g.\n` +
+      `  iconv -f CP1252 -t UTF-8 ${path} -o ${path}.utf8 && mv ${path}.utf8 ${path}`
+    );
+  }
+}
+
+/** Normalize property text: collapse whitespace runs (incl. NBSP, which `\s` matches) and trim. */
+const clean = (v) => v.replace(/\s+/g, " ").trim();
+
 function getBbox(feature) {
   let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
   function visit(coords) {
@@ -165,7 +188,7 @@ function applyTransform(raw, transform) {
 
 function processFile(geojsonPath) {
   console.log(`  ${geojsonPath}`);
-  const geojson = JSON.parse(readFileSync(geojsonPath, "utf-8"));
+  const geojson = JSON.parse(readUtf8(geojsonPath));
 
   const features = geojson.features.filter(f =>
     f.geometry && (f.geometry.type === "Polygon" || f.geometry.type === "MultiPolygon")
@@ -187,7 +210,7 @@ function processFile(geojsonPath) {
 
   /** Apply FIPS→USPS transform for us-states */
   function shortValue(feat) {
-    const raw = String(feat.properties?.[propKey] ?? "");
+    const raw = clean(String(feat.properties?.[propKey] ?? ""));
     if (fileKeys?.shortTransform === "fips2usps") {
       return FIPS_TO_USPS[raw.padStart(2, "0")] || raw;
     }
@@ -219,14 +242,14 @@ function processFile(geojsonPath) {
     // Bake each selectable property column for this feature
     for (let p = 0; p < propDefs.length; p++) {
       const d = propDefs[p];
-      let v = String(feat.properties?.[d.from] ?? "");
+      let v = clean(String(feat.properties?.[d.from] ?? ""));
       if (d.transform) v = applyTransform(v, d.transform);
       columns[p].push(v);
     }
 
     // Collect long value for translation CSV
     if (longKey) {
-      const lv = String(feat.properties?.[longKey] ?? "");
+      const lv = clean(String(feat.properties?.[longKey] ?? ""));
       if (!longPropValues.find(([s]) => s === pv)) {
         longPropValues.push([pv, lv]);
       }
