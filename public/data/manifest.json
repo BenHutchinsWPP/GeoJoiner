@@ -1,0 +1,126 @@
+[
+  {
+    "id": "country",
+    "label": "Countries",
+    "url": "/GeoJoiner/data/countries.geojson",
+    "gjbfUrl": "/GeoJoiner/data/countries.gjbf",
+    "gridUrl": "/GeoJoiner/data/countries.grid",
+    "translationUrl": "/GeoJoiner/data/countries.translation.csv",
+    "defaultPropertyKey": "ADMIN",
+    "properties": [
+      { "key": "ADMIN", "label": "Name", "example": "Ghana" },
+      { "key": "ISO_A3", "label": "ISO code (3)", "example": "GHA" },
+      { "key": "ISO_A2", "label": "ISO code (2)", "example": "GH" },
+      { "key": "CONTINENT", "label": "Continent", "example": "Africa" },
+      { "key": "POP_EST", "label": "Population", "example": "30417856" }
+    ],
+    "translatedFrom": "ISO_A3",
+    "translatedTo": "ADMIN",
+    "suggestion": "Country",
+    "color": "#e74c3c"
+  },
+  {
+    "id": "state",
+    "label": "US States",
+    "url": "/GeoJoiner/data/us-states.geojson",
+    "gjbfUrl": "/GeoJoiner/data/us-states.gjbf",
+    "gridUrl": "/GeoJoiner/data/us-states.grid",
+    "translationUrl": "/GeoJoiner/data/us-states.translation.csv",
+    "defaultPropertyKey": "NAME",
+    "properties": [
+      { "key": "NAME", "label": "Name", "example": "Maryland" },
+      { "key": "USPS", "label": "USPS code", "example": "MD" },
+      { "key": "FIPS", "label": "FIPS code", "example": "24" }
+    ],
+    "translatedFrom": "USPS",
+    "translatedTo": "NAME",
+    "suggestion": "State",
+    "color": "#3498db"
+  },
+  {
+    "id": "county",
+    "label": "US Counties",
+    "url": "/GeoJoiner/data/us-counties.geojson",
+    "gjbfUrl": "/GeoJoiner/data/us-counties.gjbf",
+    "gridUrl": "/GeoJoiner/data/us-counties.grid",
+    "translationUrl": "/GeoJoiner/data/us-counties.translation.csv",
+    "defaultPropertyKey": "NAME",
+    "properties": [
+      { "key": "NAME", "label": "Name", "example": "Minidoka" },
+      { "key": "COUNTY", "label": "County FIPS", "example": "067" },
+      { "key": "STATEFP", "label": "State FIPS", "example": "16" }
+    ],
+    "suggestion": "County",
+    "color": "#2ecc71"
+  },
+  {
+    "id": "ba",
+    "label": "Balancing Authority",
+    "url": "/GeoJoiner/data/balancing-authorities.geojson",
+    "gjbfUrl": "/GeoJoiner/data/balancing-authorities.gjbf",
+    "gridUrl": "/GeoJoiner/data/balancing-authorities.grid",
+    "translationUrl": "/GeoJoiner/data/balancing-authorities.translation.csv",
+    "defaultPropertyKey": "BAL_AUTH",
+    "properties": [
+      { "key": "BAL_AUTH", "label": "Name", "example": "Gridliance Heartland" },
+      { "key": "BA_Abbrev", "label": "Abbreviation", "example": "GLHB" }
+    ],
+    "translatedFrom": "BA_Abbrev",
+    "translatedTo": "BAL_AUTH",
+    "suggestion": "BA",
+    "color": "#9b59b6"
+  },
+  {
+    "id": "nerc",
+    "label": "NERC Regions",
+    "url": "/GeoJoiner/data/nerc-regions.geojson",
+    "gjbfUrl": "/GeoJoiner/data/nerc-regions.gjbf",
+    "gridUrl": "/GeoJoiner/data/nerc-regions.grid",
+    "translationUrl": "/GeoJoiner/data/nerc-regions.translation.csv",
+    "defaultPropertyKey": "NERC_Label",
+    "properties": [
+      { "key": "NERC_Label", "label": "Name", "example": "ReliabilityFirst Corporation (RFC)" },
+      { "key": "NERC", "label": "Code", "example": "RFC" }
+    ],
+    "translatedFrom": "NERC",
+    "translatedTo": "NERC_Label",
+    "suggestion": "NERC_Region",
+    "color": "#1abc9c"
+  },
+  {
+    "id": "province",
+    "label": "Admin-1 (States / Provinces)",
+    "url": "/GeoJoiner/data/canada-provinces.geojson",
+    "gjbfUrl": "/GeoJoiner/data/canada-provinces.gjbf",
+    "gridUrl": "/GeoJoiner/data/canada-provinces.grid",
+    "translationUrl": "/GeoJoiner/data/canada-provinces.translation.csv",
+    "defaultPropertyKey": "name",
+    "properties": [
+      { "key": "name", "label": "Name", "example": "West Virginia" },
+      { "key": "iso_3166_2", "label": "ISO 3166-2", "example": "US-WV" },
+      { "key": "abbrev", "label": "Abbreviation", "example": "W.Va." }
+    ],
+    "translatedFrom": "ISO 3166-2",
+    "translatedTo": "Name",
+    "suggestion": "Admin_1",
+    "color": "#e67e22"
+  },
+  {
+    "id": "retail",
+    "label": "Utility Retail Territories",
+    "url": "/GeoJoiner/data/retail-territories.geojson",
+    "gjbfUrl": "/GeoJoiner/data/retail-territories.gjbf",
+    "gridUrl": "/GeoJoiner/data/retail-territories.grid",
+    "defaultPropertyKey": "name",
+    "properties": [
+      { "key": "name", "label": "Name", "example": "HAWAIIAN ELECTRIC CO INC" },
+      { "key": "type", "label": "Ownership type", "example": "INVESTOR OWNED" },
+      { "key": "state", "label": "State", "example": "HI" },
+      { "key": "hold_co", "label": "Holding company", "example": "HAWAIIAN ELECTRIC CO INC" },
+      { "key": "ctrl_area", "label": "Control area", "example": "HECO" },
+      { "key": "customers", "label": "Customers", "example": "308485" }
+    ],
+    "suggestion": "Retail_Territory",
+    "color": "#e84393"
+  }
+]
