@@ -1,0 +1,38 @@
+{
+  "name": "geojoiner",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "preprocess": "node scripts/preprocess.mjs",
+    "fetch:census": "node scripts/fetch-census.mjs",
+    "fetch:boundaries": "node scripts/fetch-boundaries.mjs",
+    "fetch:control-areas": "node scripts/fetch-control-areas.mjs"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "leaflet": "^1.9.4",
+    "papaparse": "^5.5.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.21",
+    "@types/papaparse": "^5.5.2",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react": "^6.0.1",
+    "geojson": "^0.5.0",
+    "happy-dom": "^20.9.0",
+    "hyparquet": "^1.28.2",
+    "mapshaper": "^0.7.52",
+    "typescript": "~5.7.2",
+    "vite": "^8.0.11",
+    "vitest": "^3.0.0"
+  }
+}
