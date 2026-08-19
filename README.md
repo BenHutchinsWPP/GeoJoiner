@@ -6,8 +6,8 @@ Live at: [GeoJoiner](https://benhutchinswpp.github.io/GeoJoiner/)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](https://opensource.org/licenses/MIT)
 
-Upload a CSV with lat/lon coordinates → pick the lat/lon columns → select boundary
-layers (or upload your own GeoJSON/KML) → **Run GeoJoin** → download the enriched CSV.
+Select a CSV with lat/lon coordinates → pick the lat/lon columns → select boundary
+layers (or add your own GeoJSON/KML) → **Run GeoJoin** → download the enriched CSV.
 Everything runs in a Web Worker in your browser; 100k+ rows without freezing the UI.
 
 Built-in layers: countries, states/provinces, US states, US counties, US ZCTAs, NERC

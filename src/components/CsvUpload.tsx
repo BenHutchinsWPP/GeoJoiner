@@ -39,7 +39,7 @@ export default function CsvUpload({ onCsvLoaded }: Props) {
       className={`csv-upload ${dragOver ? "drag-over" : ""}`}
       {...dropProps}
     >
-      <h2>1. Upload CSV</h2>
+      <h2>1. Select CSV</h2>
       <p className="hint">Drag & drop or click to browse. Must have lat/lon columns.</p>
       <input
         ref={inputRef}

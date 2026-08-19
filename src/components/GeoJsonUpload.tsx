@@ -127,7 +127,7 @@ export default function GeoJsonUpload({ layers, onAdd, onRemove, onTogglePropert
       {...dropProps}
     >
       <h2>Custom Boundaries</h2>
-      <p className="hint">Upload GeoJSON, KML, or KMZ boundary files.</p>
+      <p className="hint">Select GeoJSON, KML, or KMZ boundary files.</p>
 
       <input
         ref={inputRef}
@@ -182,7 +182,7 @@ export default function GeoJsonUpload({ layers, onAdd, onRemove, onTogglePropert
 
       {layers.length > 0 && (
         <div className="uploaded-layers">
-          <h3>Uploaded Layers</h3>
+          <h3>Loaded Layers</h3>
           {layers.map((l) => {
             const cols = deriveOutputColumns(l.suggestion, l.availableProperties, l.propertyKeys);
             return (
