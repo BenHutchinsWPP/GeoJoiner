@@ -126,7 +126,7 @@
     "id": "ba",
     "label": "Balancing Authorities (EIA)",
     "group": "Electrical",
-    "sourceUrl": "https://atlas.eia.gov/",
+    "sourceUrl": "https://www.arcgis.com/home/item.html?id=b1aa4dff71ca4e5aab1787a8a7568e33#overview",
     "gjbfUrl": "/GeoJoiner/data/balancing-authorities.gjbf",
     "gridUrl": "/GeoJoiner/data/balancing-authorities.grid",
     "translationUrl": "/GeoJoiner/data/balancing-authorities.translation.csv",
