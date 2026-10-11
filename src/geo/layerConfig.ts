@@ -59,6 +59,7 @@ export const BUILTIN_COLORS: Record<string, string> = {
   ba: "#9b59b6",
   nerc: "#1abc9c",
   province: "#e67e22",
+  district: "#d35400",
   retail: "#e84393",
   control: "#34495e",
 };

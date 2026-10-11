@@ -10,7 +10,7 @@ Select a CSV with lat/lon coordinates → pick the lat/lon columns → select bo
 layers (or add your own GeoJSON/KML) → **Run GeoJoin** → download the enriched CSV.
 Everything runs in a Web Worker in your browser; 100k+ rows without freezing the UI.
 
-Built-in layers: countries, states/provinces, US states, US counties, US ZCTAs, NERC
+Built-in layers: countries, states/provinces, districts (admin-2), US states, US counties, US ZCTAs, NERC
 regions, control areas, balancing authorities, utility retail territories.
 
 ```bash

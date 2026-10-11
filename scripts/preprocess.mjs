@@ -123,6 +123,7 @@ const FILE_KEYS = {
   "balancing-authorities.geojson": { short: "BA_Abbrev", long: "BAL_AUTH" },
   "nerc-regions.geojson":    { short: "NERC",     long: "NERC_Label" },
   "admin1.geojson":          { short: "name",     long: null },
+  "admin2.geojson":          { short: "name",     long: null },
   "retail-territories.geojson": { short: "name",   long: null },
   "control-areas.geojson":   { short: "NAME",     long: null },
 };
@@ -162,6 +163,11 @@ const PROPERTIES = {
     { col: "NERC", from: "NERC", label: "Code" },
   ],
   "admin1.geojson": [
+    { col: "name", from: "name", label: "Name" },
+    { col: "country", from: "country", label: "Country" },
+    { col: "iso_a3", from: "iso_a3", label: "Country ISO (3)" },
+  ],
+  "admin2.geojson": [
     { col: "name", from: "name", label: "Name" },
     { col: "country", from: "country", label: "Country" },
     { col: "iso_a3", from: "iso_a3", label: "Country ISO (3)" },

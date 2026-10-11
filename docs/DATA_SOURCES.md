@@ -7,6 +7,7 @@ Built-in boundary layers, where they come from, and what they get wrong.
 | **Administrative** | | | |
 | Countries (geoBoundaries CGAZ ADM0) | geoBoundaries CGAZ ADM0 + Natural Earth territories | `ADMIN` | 10.5 MB |
 | States / Provinces (geoBoundaries CGAZ ADM1) | geoBoundaries CGAZ ADM1 | `name` | 14.0 MB |
+| Districts / Counties (geoBoundaries CGAZ ADM2) | geoBoundaries CGAZ ADM2 | `name` | 36.9 MB |
 | US States (Census 2025 500k) | US Census `cb_2025_us_state_500k` | `NAME` | 2.5 MB |
 | US Counties (Census 2025 500k) | US Census `cb_2025_us_county_500k` | `NAME` | 8.5 MB |
 | ZIP Codes / ZCTA (Census 2020 500k) | US Census `cb_2020_us_zcta520_500k` | `ZCTA5` | 51.1 MB |
@@ -21,7 +22,7 @@ compression. Layers are fetched only when selected, then cached in IndexedDB for
 
 ## Global layers
 
-The two global layers come from **geoBoundaries CGAZ**, a composite of per-country
+The three global layers come from **geoBoundaries CGAZ**, a composite of per-country
 authoritative sources (US Census for the USA, StatCan for Canada, INEGI for Mexico)
 with ADM0 clipped to the US State Department's LSIB. They are simplified to a
 Douglas-Peucker tolerance of 200 m, which bounds the worst-case border error at
@@ -40,6 +41,14 @@ replaced held 294 units across 9. CGAZ is sovereign-state level, so it folds
 dependencies into their parent — Hong Kong reads "China", Bermuda reads "United
 Kingdom". 39 Natural Earth territory polygons are appended to keep those named
 separately, and they are ordered *before* their parent so first-match wins.
+
+Admin-2 covers **49,348 units across 218 countries**, at the same 200 m tolerance.
+What "admin-2" means varies by country — US counties, French départements, Kenyan
+constituencies, Tokyo wards — so names are only comparable within one country.
+CGAZ carries no parent admin-1 name on ADM2 units, so the layer has no admin-1
+column; select the States / Provinces layer alongside it to get one. Names repeat
+across and within countries (31 US counties are named "Washington"), so join on name
+only together with the admin-1 or country column.
 
 ## US Census layers
 
@@ -85,7 +94,7 @@ features at full resolution, almost all of it coastline detail.
 
 ## Attribution and credits
 
-- Countries and Admin-1: [geoBoundaries](https://www.geoboundaries.org/) CGAZ, William & Mary geoLab (CC BY 4.0), with ADM0 clipped to the [US State Department LSIB](https://geodata.state.gov/) (Public Domain)
+- Countries, Admin-1 and Admin-2: [geoBoundaries](https://www.geoboundaries.org/) CGAZ, William & Mary geoLab (CC BY 4.0), with ADM0 clipped to the [US State Department LSIB](https://geodata.state.gov/) (Public Domain)
 - US States / Counties: [US Census Bureau cartographic boundary files](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html), 2025 500k series (Public Domain)
 - US ZCTAs: [US Census Bureau cartographic boundary files](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html), 2020 500k series (Public Domain)
 - Balancing Authorities: EIA, via the [Balancing Authorities feature layer](https://www.arcgis.com/home/item.html?id=b1aa4dff71ca4e5aab1787a8a7568e33#overview) (Public Domain). The EIA Energy Atlas that originally served this layer has been retired and EIA's own hosted copy now requires a token, so this republished ArcGIS Online layer is the live source. The shipped `data-src/balancing-authorities.geojson` is a byte-identical pull from it (MD5 `2a9a9af0e91eb4f37b92239fc29b44a5`) via `FeatureServer/0/query?where=1=1&outFields=*&outSR=4326&f=geojson`. The data is a 2024-vintage snapshot at best: it still names `SCEG` (renamed Dominion Energy South Carolina years ago) and carries BAs EIA has since retired, and its `NETGENMWH` attribute is an annual net-generation snapshot from around 2018-2020.

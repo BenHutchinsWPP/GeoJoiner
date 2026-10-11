@@ -40,8 +40,10 @@ coverage/
 # Reproducible byte-for-byte with `node scripts/fetch-census.mjs`; the shipped
 # .gjbf/.grid built from it ARE tracked, so only rebuilds need it.
 data-src/us-zctas.geojson
+# admin2.geojson is ~96 MB, too close to the same limit; fetch-boundaries.mjs rebuilds it.
+data-src/admin2.geojson
 
-# Raw geoBoundaries CGAZ + Natural Earth downloads, ~815 MB, plus the
+# Raw geoBoundaries CGAZ + Natural Earth downloads, ~1.4 GB, plus the
 # simplified intermediates. Re-fetched on demand by fetch-boundaries.mjs.
 data-src/.cache/
 

@@ -37,6 +37,22 @@
     "color": "#e67e22"
   },
   {
+    "id": "district",
+    "label": "Districts / Counties (geoBoundaries CGAZ ADM2)",
+    "group": "Administrative",
+    "sourceUrl": "https://www.geoboundaries.org/",
+    "gjbfUrl": "/GeoJoiner/data/admin2.gjbf",
+    "gridUrl": "/GeoJoiner/data/admin2.grid",
+    "defaultPropertyKey": "name",
+    "properties": [
+      { "key": "name", "label": "Name", "example": "Kanawha" },
+      { "key": "country", "label": "Country", "example": "United States" },
+      { "key": "iso_a3", "label": "Country ISO (3)", "example": "USA" }
+    ],
+    "suggestion": "Admin_2",
+    "color": "#d35400"
+  },
+  {
     "id": "state",
     "label": "US States (Census 2018 500k)",
     "group": "Administrative",

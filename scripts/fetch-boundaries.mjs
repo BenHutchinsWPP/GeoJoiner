@@ -1,5 +1,6 @@
 /**
- * Build the global Countries + Admin-1 layers → data-src/{countries,admin1}.geojson
+ * Build the global Countries, Admin-1 and Admin-2 layers
+ *   → data-src/{countries,admin1,admin2}.geojson
  *
  * Source: geoBoundaries CGAZ (Comprehensive Global Administrative Zones), a
  * composite of per-country authoritative sources — US Census for the USA,
@@ -22,7 +23,7 @@
  * to shared arcs, so neighbouring polygons stay welded (no sliver gaps).
  *
  * Requires no external binaries — mapshaper is already a devDependency.
- * Downloads (~815 MB) are cached in data-src/.cache and reused.
+ * Downloads (~1.4 GB) are cached in data-src/.cache and reused.
  */
 
 import { execFileSync } from "child_process";
@@ -46,6 +47,7 @@ const NE = "https://github.com/nvkelso/natural-earth-vector/raw/master/geojson";
 const SOURCES = {
   "cgaz-adm0.geojson": `${CGAZ}/geoBoundariesCGAZ_ADM0.geojson`,
   "cgaz-adm1.geojson": `${CGAZ}/geoBoundariesCGAZ_ADM1.geojson`,
+  "cgaz-adm2.geojson": `${CGAZ}/geoBoundariesCGAZ_ADM2.geojson`,
   "ne10-countries.geojson": `${NE}/ne_10m_admin_0_countries.geojson`,
 };
 
@@ -110,8 +112,10 @@ for (const [name, url] of Object.entries(SOURCES)) paths[name] = await download(
 console.log(`\nSimplifying to Douglas-Peucker ${INTERVAL} m…`);
 const adm0 = join(CACHE, `adm0-dp${INTERVAL}.geojson`);
 const adm1 = join(CACHE, `adm1-dp${INTERVAL}.geojson`);
+const adm2 = join(CACHE, `adm2-dp${INTERVAL}.geojson`);
 if (!existsSync(adm0)) simplify(paths["cgaz-adm0.geojson"], adm0);
 if (!existsSync(adm1)) simplify(paths["cgaz-adm1.geojson"], adm1);
+if (!existsSync(adm2)) simplify(paths["cgaz-adm2.geojson"], adm2);
 
 // ── Countries ────────────────────────────────────────────────────────────
 //
@@ -209,5 +213,30 @@ writeFileSync(join(SRC_DIR, "admin1.geojson"), JSON.stringify(admin1));
 const nCountries = new Set(admin1.features.map((f) => f.properties.iso_a3)).size;
 console.log(`  ${admin1.features.length} units across ${nCountries} countries`);
 console.log(`  → admin1.geojson  (${mb(statSync(join(SRC_DIR, "admin1.geojson")).size)})`);
+
+// ── Admin-2 ──────────────────────────────────────────────────────────────
+//
+// Same shape as Admin-1. CGAZ ADM2 carries no parent ADM1 name, so there is
+// no admin-1 column — select both layers to get one.
+console.log("\nBuilding admin2.geojson…");
+const admin2 = {
+  type: "FeatureCollection",
+  features: readJson(adm2).features.map((f) => {
+    const iso3 = f.properties.shapeGroup;
+    return {
+      type: "Feature",
+      properties: {
+        name: f.properties.shapeName,
+        country: countryName.get(iso3) ?? iso3,
+        iso_a3: iso3,
+      },
+      geometry: f.geometry,
+    };
+  }),
+};
+writeFileSync(join(SRC_DIR, "admin2.geojson"), JSON.stringify(admin2));
+const nCountries2 = new Set(admin2.features.map((f) => f.properties.iso_a3)).size;
+console.log(`  ${admin2.features.length} units across ${nCountries2} countries`);
+console.log(`  → admin2.geojson  (${mb(statSync(join(SRC_DIR, "admin2.geojson")).size)})`);
 
 console.log("\nDone. Now run: node scripts/preprocess.mjs");

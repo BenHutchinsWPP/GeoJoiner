@@ -20,7 +20,7 @@ GeoJSON → binary `.gjbf` (pre-flattened polygon coords, int32 fixed-point at ~
 
 ```bash
 npm run fetch:census      # Census shapefiles      → data-src/us-*.geojson
-npm run fetch:boundaries  # geoBoundaries + NE     → data-src/{countries,admin1}.geojson
+npm run fetch:boundaries  # geoBoundaries + NE     → data-src/{countries,admin1,admin2}.geojson
 npm run fetch:control-areas # HIFLD GeoParquet     → data-src/control-areas.geojson
 npm run preprocess        # data-src/*.geojson     → public/data/*.gjbf + .grid
 ```
@@ -35,7 +35,7 @@ since the release year is not the boundary vintage. The ZCTA source GeoJSON (~16
 is gitignored since it exceeds GitHub's 100 MB file limit — re-run it to restore it.
 
 `fetch-boundaries.mjs` needs no external binaries; it simplifies with mapshaper, which
-is already a devDependency. It downloads ~815 MB into the gitignored `data-src/.cache/`
+is already a devDependency. It downloads ~1.4 GB into the gitignored `data-src/.cache/`
 and reuses it, so re-running after the first fetch costs only the simplify pass. Note
 that `-simplify dp` is load-bearing: mapshaper's default is Visvalingam, whose
 `interval=` is an area threshold with no deviation bound, and at the same file size it
